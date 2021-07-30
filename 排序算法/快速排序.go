@@ -4,11 +4,45 @@ import "fmt"
 
 func main() {
 	list3 := []int{5, 9, 1, 6, 8, 14, 6, 49, 25, 4, 6, 3}
-	QuickSort(list3, 0, len(list3)-1)
+	//QuickSort(list3, 0, len(list3)-1)
+	QuickSort2(list3, 0, len(list3)-1)
 	fmt.Println(list3)
 }
 
-//递归形式
+//递归形式1
+func QuickSort2(array []int, begin, end int) {
+	left := begin
+	right := end
+	tmp := 0
+	if left < right { //待排序的只是有两种情况
+		//1.选数组第一个元素为基准值
+		tmp = array[left]
+
+		//2.从左右两边交替扫描，直到left=right
+		for left != right {
+			//3.从右往左扫描，找到第一比基准元素小的元素，并将找到这种元素arr[right]后与arr[left]交换；如果扫描到的值比基准值大，则继续向左扫描
+			for right > left && array[right] >= tmp {
+				right--
+			}
+			array[left] = array[right]
+
+			//4.从左往左扫描，找到第一比基准元素大的元素，并将找到这种元素arr[right]后与arr[left]交换；如果扫描到的值比基准值小，则继续向右扫描
+			for right > left && array[left] <= tmp {
+				left++
+			}
+			array[right] = array[left]
+		}
+
+		//跳出循环后，left == right
+		//5.基准值归位
+		array[right] = tmp
+		//6.对左右两部元素进行递归处理
+		QuickSort2(array, begin, left-1) //对基准元素左边的元素进行递归排序
+		QuickSort2(array, right+1, end)  //对基准元素右边的元素进行递归排序
+	}
+}
+
+//递归形式2
 func QuickSort(array []int, begin, end int) {
 	if begin < end {
 		// 进行切分
