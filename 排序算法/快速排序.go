@@ -53,7 +53,6 @@ func QuickSort(array []int, begin, end int) {
 		QuickSort(array, loc+1, end)
 	}
 }
-
 func partition(array []int, begin, end int) int {
 	i := begin + 1 // 将array[begin]作为基准数，因此从array[begin+1]开始与基准数比较！
 	j := end       // array[end]是数组的最后一位
