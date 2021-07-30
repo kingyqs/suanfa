@@ -9,7 +9,7 @@ func main() {
 	fmt.Println(list3)
 }
 
-//递归形式1
+//递归形式1 参考：https://www.cnblogs.com/MOBIN/p/4681369.html
 func QuickSort2(array []int, begin, end int) {
 	left := begin
 	right := end
