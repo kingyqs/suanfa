@@ -9,6 +9,8 @@ func main() {
 	fmt.Println(list3)
 }
 
+//时间复杂度 O(nlogn)
+
 //递归形式1 参考：https://www.cnblogs.com/MOBIN/p/4681369.html
 func QuickSort2(array []int, begin, end int) {
 	left := begin
@@ -81,3 +83,5 @@ func partition(array []int, begin, end int) int {
 
 	return i
 }
+
+//非递归，自定义一个栈，不会存在递归程序栈溢出问题
