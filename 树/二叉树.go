@@ -128,6 +128,35 @@ func (queue *LinkQueue) Size() int {
 	return queue.size
 }
 
+func LayerOrder(treeNode *TreeNode) {
+	if treeNode == nil {
+		return
+	}
+
+	// 新建队列
+	queue := new(LinkQueue)
+
+	// 根节点先入队
+	queue.Add(treeNode)
+	for queue.size > 0 {
+		// 不断出队列
+		element := queue.Remove()
+
+		// 先打印节点值
+		fmt.Print(element.Data, " ")
+
+		// 左子树非空，入队列
+		if element.Left != nil {
+			queue.Add(element.Left)
+		}
+
+		// 右子树非空，入队列
+		if element.Right != nil {
+			queue.Add(element.Right)
+		}
+	}
+}
+
 func main() {
 	t := &TreeNode{Data: "A"}
 	t.Left = &TreeNode{Data: "B"}
@@ -142,4 +171,6 @@ func main() {
 	MidOrder(t)
 	fmt.Println("\n后序排序")
 	PostOrder(t)
+	fmt.Println("\n层次遍历")
+	LayerOrder(t)
 }
