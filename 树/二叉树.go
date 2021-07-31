@@ -51,7 +51,6 @@ func PostOrder(tree *TreeNode) {
 	if tree == nil {
 		return
 	}
-
 	//先打印左子树
 	PostOrder(tree.Left)
 	// 再打印右子树
@@ -123,33 +122,58 @@ func (queue *LinkQueue) Remove() *TreeNode {
 	return v
 }
 
-//队列中元素数量
-func (queue *LinkQueue) Size() int {
-	return queue.size
+//数组队列
+type ArrayQueue struct {
+	arr  []interface{}
+	len  int
+	lock sync.Mutex
 }
 
+func (queue *ArrayQueue) Add(v interface{}) {
+	queue.lock.Lock()
+	defer queue.lock.Unlock()
+	queue.arr = append(queue.arr, v)
+	queue.len = len(queue.arr)
+}
+
+func (queue *ArrayQueue) Rem() interface{} {
+	queue.lock.Lock()
+	defer queue.lock.Unlock()
+	if queue.len <= 0 {
+		panic("empty")
+	}
+	out := queue.arr[0]
+	queue.arr = queue.arr[1:]
+	queue.len = len(queue.arr)
+	return out
+}
+
+/*
+				A
+		B        		C
+	D		E		F
+*/
+//层次遍历：每一层从左到右访问每一个节点。
 func LayerOrder(treeNode *TreeNode) {
 	if treeNode == nil {
 		return
 	}
 
 	// 新建队列
-	queue := new(LinkQueue)
+	queue := new(ArrayQueue)
 
 	// 根节点先入队
 	queue.Add(treeNode)
-	for queue.size > 0 {
+	for queue.len > 0 {
 		// 不断出队列
-		element := queue.Remove()
-
+		e := queue.Rem()
+		element, _ := e.(*TreeNode)
 		// 先打印节点值
 		fmt.Print(element.Data, " ")
-
 		// 左子树非空，入队列
 		if element.Left != nil {
 			queue.Add(element.Left)
 		}
-
 		// 右子树非空，入队列
 		if element.Right != nil {
 			queue.Add(element.Right)
