@@ -38,7 +38,7 @@ item： l1->l2->l3->l4->nil
 
 成环：
 item->head
-l1->l2->l3->l4->l1
+->l1->l2->l3->l4-> l1->l2->l3->l4->  l1->l2->l3->l4->...
 */
 func rotateRight(head *ListNode, k int) *ListNode {
 	if k == 0 || head == nil || head.Next == nil {
@@ -62,7 +62,7 @@ func rotateRight(head *ListNode, k int) *ListNode {
 
 	//将链表变成环
 	iter.Next = head
-	//循环环状链表，找出移动的数据
+	//循环环状链表，找出到移动的数据
 	for add > 0 {
 		iter = iter.Next
 		add--

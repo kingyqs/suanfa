@@ -19,16 +19,15 @@ func QuickSort2(array []int, begin, end int) {
 	if left < right { //待排序的只是有两种情况
 		//1.选数组第一个元素为基准值
 		tmp = array[left]
-
 		//2.从左右两边交替扫描，直到left=right
 		for left != right {
-			//3.从右往左扫描，找到第一比基准元素小的元素，并将找到这种元素arr[right]后与arr[left]交换；如果扫描到的值比基准值大，则继续向左扫描
+			//3.从右往左扫描，找到第一比基准元素小的元素，并将找到这种元素arr[right]后与arr[left]交换；如果扫描到的值比基准值大，则继续由右向左扫描
 			for right > left && array[right] >= tmp {
 				right--
 			}
 			array[left] = array[right]
 
-			//4.从左往左扫描，找到第一比基准元素大的元素，并将找到这种元素arr[right]后与arr[left]交换；如果扫描到的值比基准值小，则继续向右扫描
+			//4.从左往左扫描，找到第一比基准元素大的元素，并将找到这种元素arr[right]后与arr[left]交换；如果扫描到的值比基准值小，则继续由左向右扫描
 			for right > left && array[left] <= tmp {
 				left++
 			}
